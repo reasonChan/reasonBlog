@@ -1,7 +1,7 @@
 const ArticleModel = require("../model/ArticleModel");
 const ArticleService = {
     getArticlesListByTag: (tag) => {
-        return ArticleModel.find({tag: tag}).
+        return ArticleModel.find({tag: tag},["title","tag","updatedAt","views","_id","abstract","img"]).
         sort({updatedAt: -1})  //时间降序排列， 最新的排在前面， 越新的时间戳越大
     },
     getArticlesListSortByTime: (page, limit) => {
@@ -10,13 +10,14 @@ const ArticleService = {
         skip((page-1)*limit).
         limit(limit)
     },
-    addArticle: (title, content, author, tag, view = 0) => {
+    addArticle: (title, content, tag,img, abstract,view = 0) => {
         return ArticleModel.create({
             title,
             content,
-            author,
             tag,
-            view
+            view,
+            img,
+            abstract
         })
     },
     updateArticle: (title, content, author, tag) => {

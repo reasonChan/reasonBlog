@@ -1,13 +1,12 @@
 const UserModel = require("../model/UserModel");
 const UserService = {
     getUser: (page, limit) => {
-        return UserModel.find({}, ["username", "age"]).sort({age: -1}).skip((page-1)*limit).limit(limit)
+        return UserModel.find({}, ["username"]).sort({age: -1}).skip((page-1)*limit).limit(limit)
     },
-    addUser: (username, password, age) => {
+    addUser: (username, password) => {
         return UserModel.create({
             username,
             password,
-            age
         })
     },
     updateUser: (id, username, password, age) => {

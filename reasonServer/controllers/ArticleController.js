@@ -1,9 +1,17 @@
 const ArticleService = require('../services/ArticleService')
+const constant = require('../config/constant')
 const ArticleController = {
     //新增文章
     addArticle: async (req, res) => {
-        const {title, content, author, tag} = req.body
-        await ArticleService.addArticle(title, content, author, tag)
+        const {title, content, tag, abstract} = req.body
+        const regex = /<img.*?src="(.*?)"/i;
+        let img = ''
+        if(regex.test(content)){
+            img = content.match(regex)[1]    //若content有图片选第一张图片为img，没有则使用默认img
+        }else {
+            img = constant.defaultImg
+        }
+        await ArticleService.addArticle(title, content, tag, img, abstract)
         res.send({
             code: 200,
             msg: "发布文章成功"

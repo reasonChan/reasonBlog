@@ -6,7 +6,8 @@ var logger = require('morgan');
 
 const articlesRouter = require('./routes/articles');
 const usersRouter = require('./routes/users');
-const administratorsRouter = require('./routes/administrators')
+const uploadRouter = require('./routes/upload');
+const systemRouter = require('./routes/system')
 const JWT = require("./util/jwt");
 
 const app = express();
@@ -19,7 +20,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname)));
 
 app.use('/api/articles', articlesRouter);
 
@@ -29,26 +31,34 @@ app.use((req, res, next) => {
     next()
     return
   }
-  const token = req.headers["authorization"]?.split(" ") //取出bearer后的字段
+  const token = req.headers["authorization"]?.split(" ")[1] //取出bearer后的字段
   if(token){  //如果携带了token就去验证，如果没携带就是路由的请求
     const payload = JWT.verify(token)
     if(payload){
       const newToken = JWT.generate({    //更新token
         _id: payload._id,
         username: payload.username
-      })
+      },'1d')
       res.header("Authorization", newToken)
       next()
     }else {
-      res.status(401).send({errCode: -1, errMessage: "token过期"})  //token验证失败
+      res.send({
+        code: 401,
+        msg: "token验证失败"
+      })  //token验证失败
     }
   }else {
-    res.status(401).send({errCode: -1, errMessage: "未登录"})
+    res.send({
+      code: 401,
+      msg: "token验证失败"
+    })
   }
 })
+
 //需要登录获取token才可访问的路由
+app.use('/api/upload', uploadRouter)
 app.use('/api/users', usersRouter);
-app.use('/api/administrator', administratorsRouter)
+app.use('/api/system', systemRouter)
 
 
 // catch 404 and forward to error handler

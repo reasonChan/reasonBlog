@@ -10,12 +10,12 @@
       </div>
       <div class="header-nav">
         <ul>
-          <li><a href="">首页</a></li>
-          <li><a href="">js手撕</a></li>
-          <li><a href="">动画demo</a></li>
-          <li><a href="">性能优化</a></li>
-          <li><a href="">工程化和部署</a></li>
-          <li><a href="">Github</a></li>
+          <li><router-link to="/home">首页</router-link></li>
+          <li><router-link to="/article/01">js基础</router-link></li>
+          <li><router-link to="/article/02">动画渲染</router-link></li>
+          <li><router-link to="/article/03">性能优化</router-link></li>
+          <li><router-link to="/article/04">工程化和部署</router-link></li>
+          <li><a href="https://github.com/reasonChan/reasonBlog">Github</a></li>
         </ul>
       </div>
       <div class="header-login"><router-link to="/login">登录</router-link></div>
@@ -24,11 +24,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const activeIndex = ref('1')
-const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
-}
 </script>
 
 <style scoped>

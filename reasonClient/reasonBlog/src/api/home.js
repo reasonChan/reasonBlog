@@ -8,10 +8,3 @@ export function latestArticles(query) {
         params: query
     })
 }
-export function addtArticle(data) {
-    return request({
-        url: '/api/articles/add',
-        method: 'post',
-        data
-    })
-}

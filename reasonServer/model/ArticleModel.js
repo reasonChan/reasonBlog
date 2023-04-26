@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const ArticleSchema = new mongoose.Schema({
     title: String,  //文章标题
     content: String,  //文章内容
-    author: String,  //文章作者
+    abstract: String, //文章梗概
+    img: String,    //文章封面
     tag: Number,  //文章分类
     views: {
         type: Number,

@@ -2,13 +2,13 @@ const UserService = require("../services/UserService")
 const JWT = require("../util/jwt");
 const UserController = {
     addUser: async (req, res) => {
-        console.log(req.body)
-        const {username, password, age} = req.body
-        const data = await UserService.addUser(username, password, age)
+        const {username, password} = req.body
+        const data = await UserService.addUser(username, password)
+        const {_id} = data
         res.send({
-            ok:200,
-            message: 'insert ok',
-            data
+            code:200,
+            message: '添加用户成功',
+            _id
         })
     },
     getUser: async (req, res) => {
@@ -39,7 +39,7 @@ const UserController = {
         const data = await UserService.login(username, password)
         if(data.length === 0){
             res.send({
-                code: 0,  //没有此用户
+                code: 401,  //没有此用户
                 msg: "登录失败"
             })
         }else {
@@ -49,8 +49,9 @@ const UserController = {
             }, "1d") //生成token
             res.header("Authorization", token)
             res.send({
-                code : 1,
-                msg: "登录成功"
+                code : 200,
+                msg: "登录成功",
+                token
             })
         }
     },

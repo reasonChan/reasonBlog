@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <el-header>
     <div class="header-content">
       <h1 class="content-logo">
         reason进阶之路
@@ -11,26 +11,27 @@
       <div class="header-nav">
         <ul>
           <li><router-link to="/home">首页</router-link></li>
-          <li><router-link to="/article/01">js基础</router-link></li>
-          <li><router-link to="/article/02">动画渲染</router-link></li>
-          <li><router-link to="/article/03">性能优化</router-link></li>
-          <li><router-link to="/article/04">工程化和部署</router-link></li>
+          <li><router-link to="/article01">js基础</router-link></li>
+          <li><router-link to="/article01">动画渲染</router-link></li>
+          <li><router-link to="/article01">性能优化</router-link></li>
+          <li><router-link to="/article01">工程化和部署</router-link></li>
           <li><a href="https://github.com/reasonChan/reasonBlog">Github</a></li>
         </ul>
       </div>
       <div class="header-login"><router-link to="/login">登录</router-link></div>
     </div>
-  </header>
+  </el-header>
 </template>
 
 <script setup>
 </script>
-
 <style scoped>
-header{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.el-header{
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 38px;
   background-color: #fff;
@@ -38,9 +39,9 @@ header{
   /*box-shadow: 0px 5px 6px rgba(0,0,0,0.16);*/
 }
 .header-content{
+  margin: 0 auto;
   display: flex;
-  justify-content: space-around;
-  width: 1200px;
+  justify-content: space-between;
   height: 100%;
 }
 .content-logo{

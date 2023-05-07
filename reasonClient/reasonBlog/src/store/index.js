@@ -1,7 +1,8 @@
-import { defineStore } from 'pinia'
+import { defineStore, createPinia } from 'pinia'
 import {login, logout} from "../api/login.js";
 import {getToken, setToken, removeToken} from "../utils/token.js";
 
+export const store = createPinia()
 export const user = defineStore('user', {
     state: () => {
         return {
@@ -17,7 +18,6 @@ export const user = defineStore('user', {
             const password = userInfo.password
             return new Promise((resolve, reject) => {
                 login(username, password).then(res => {
-                    console.log(res)
                     setToken(res.token)
                     this.token = res.token
                     resolve()
@@ -29,9 +29,10 @@ export const user = defineStore('user', {
             this.token = ''
         },
         RefreshToken(token){
-            console.log(token)
-            setToken(token)
-            this.token = token
+            if(token && token.length !== 0){
+                setToken(token)
+                this.token = token
+            }
         }
     },
 })

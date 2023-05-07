@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {user} from "../store/index.js";
-axios.defaults.headers['Content-type'] = 'application/json;charset=utf-8'
+// axios.defaults.headers['Content-type'] = 'application/json;charset=utf-8'
 
 const service = axios.create({
     baseURL : '/api',  //vite.config.js会把/api替换成服务端地址
@@ -43,11 +43,15 @@ service.interceptors.response.use(res => {
     }else if(code === 500){
         //服务端错误
     }else if(code === 200){
-        console.log(res.headers["authorization"])
         user().RefreshToken(res.headers["authorization"])
         return res.data
     }else{
-        console.log(res)
+        if(res.status === 200){
+            user().RefreshToken(res.headers["authorization"])
+            return res.data
+        }else{
+            console.log(res,'el')
+        }
     }
 }, error=>{
     console.log('error: ', error)

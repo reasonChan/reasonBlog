@@ -7,12 +7,18 @@ dependencies:
   '@wangeditor/editor':
     specifier: ^5.1.23
     version: 5.1.23
+  '@wangeditor/editor-for-vue':
+    specifier: ^5.1.12
+    version: 5.1.12(@wangeditor/editor@5.1.23)(vue@3.2.47)
   axios:
     specifier: ^1.3.5
     version: 1.3.5
   element-plus:
     specifier: ^2.3.3
     version: 2.3.3(vue@3.2.47)
+  loadsh:
+    specifier: ^0.0.4
+    version: 0.0.4
   naive-ui:
     specifier: ^2.34.3
     version: 2.34.3(vue@3.2.47)
@@ -31,6 +37,9 @@ dependencies:
   vue-router:
     specifier: ^4.1.6
     version: 4.1.6(vue@3.2.47)
+  xss:
+    specifier: ^1.0.14
+    version: 1.0.14
 
 devDependencies:
   '@vitejs/plugin-vue':
@@ -61,8 +70,8 @@ packages:
     dependencies:
       '@babel/types': 7.21.4
 
-  /@babel/runtime@7.21.0:
-    resolution: {integrity: sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==}
+  /@babel/runtime@7.21.5:
+    resolution: {integrity: sha512-8jI69toZqqcsnqGGqwGS4Qb1VwLOEp4hz+CXPywcvjs60u3B4Pom/U/7rm4W8tMOYEB+E9wgD0mW1l3r8qlI9Q==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
@@ -622,6 +631,16 @@ packages:
       snabbdom: 3.5.1
     dev: false
 
+  /@wangeditor/editor-for-vue@5.1.12(@wangeditor/editor@5.1.23)(vue@3.2.47):
+    resolution: {integrity: sha512-0Ds3D8I+xnpNWezAeO7HmPRgTfUxHLMd9JKcIw+QzvSmhC5xUHbpCcLU+KLmeBKTR/zffnS5GQo6qi3GhTMJWQ==}
+    peerDependencies:
+      '@wangeditor/editor': '>=5.1.0'
+      vue: ^3.0.5
+    dependencies:
+      '@wangeditor/editor': 5.1.23
+      vue: 3.2.47
+    dev: false
+
   /@wangeditor/editor@5.1.23:
     resolution: {integrity: sha512-0RxfeVTuK1tktUaPROnCoFfaHVJpRAIE2zdS0mpP+vq1axVQpLjM8+fCvKzqYIkH0Pg+C+44hJpe3VVroSkEuQ==}
     dependencies:
@@ -800,6 +819,10 @@ packages:
       delayed-stream: 1.0.0
     dev: false
 
+  /commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: false
+
   /compute-scroll-into-view@1.0.20:
     resolution: {integrity: sha512-UCB0ioiyj8CRjtrvaceBLqqhZCVP+1B8+NWQhmdsm0VXOJtobBCf1dBQmebCCo34qZmUwZfIH2MZLqNHazrfjg==}
     dev: false
@@ -809,6 +832,10 @@ packages:
     dependencies:
       '@emotion/hash': 0.8.0
       csstype: 3.0.11
+    dev: false
+
+  /cssfilter@0.0.10:
+    resolution: {integrity: sha512-FAaLDaplstoRsDR8XGYH51znUN0UY7nMc6Z9/fvE8EXGwvJE9hu7W2vHwx1+bd6gCYnln9nLbzxFTrcO9YQDZw==}
     dev: false
 
   /csstype@2.6.21:
@@ -1052,7 +1079,7 @@ packages:
   /i18next@20.6.1:
     resolution: {integrity: sha512-yCMYTMEJ9ihCwEQQ3phLo7I/Pwycf8uAx+sRHwwk5U9Aui/IZYgQRyMqXafQOw5QQ7DM1Z+WyEXWIqSuJHhG2A==}
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.21.5
     dev: false
 
   /immer@9.0.21:
@@ -1103,6 +1130,11 @@ packages:
 
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
+    dev: false
+
+  /loadsh@0.0.4:
+    resolution: {integrity: sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw==}
+    deprecated: This is a typosquat on the popular Lodash package. This is not maintained nor is the original Lodash package.
     dev: false
 
   /local-pkg@0.4.3:
@@ -1665,4 +1697,13 @@ packages:
 
   /wildcard@1.1.2:
     resolution: {integrity: sha512-DXukZJxpHA8LuotRwL0pP1+rS6CS7FF2qStDDE1C7DDg2rLud2PXRMuEDYIPhgEezwnlHNL4c+N6MfMTjCGTng==}
+    dev: false
+
+  /xss@1.0.14:
+    resolution: {integrity: sha512-og7TEJhXvn1a7kzZGQ7ETjdQVS2UfZyTlsEdDOqvQF7GoxNfY+0YLCzBy1kPdsDDx4QuNAonQPddpsn6Xl/7sw==}
+    engines: {node: '>= 0.10.0'}
+    hasBin: true
+    dependencies:
+      commander: 2.20.3
+      cssfilter: 0.0.10
     dev: false

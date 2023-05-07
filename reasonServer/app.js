@@ -21,8 +21,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
+// app.use((req, res, next) => {
+//   res.setHeader("Content-Security-Policy", "default-src  http://localhost:3002");
+//   next();
+// })
 app.use(express.static(path.join(__dirname)));
-
 app.use('/api/articles', articlesRouter);
 
 //登录功能的中间件

@@ -4,6 +4,17 @@ const ArticleService = {
         return ArticleModel.find({tag: tag},["title","tag","updatedAt","views","_id","abstract","img"]).
         sort({updatedAt: -1})  //时间降序排列， 最新的排在前面， 越新的时间戳越大
     },
+    getArticleContentById: (id) => {
+        return ArticleModel.find({_id: id},["title","content","tag","updatedAt","views","_id"]).
+        sort({updatedAt: -1})  //时间降序排列， 最新的排在前面， 越新的时间戳越大
+    },
+    getTitleListByTag: (tag) => {
+        return ArticleModel.find({tag: tag},["title","tag","updatedAt","views","_id"]).
+        sort({updatedAt: -1})  //时间降序排列， 最新的排在前面， 越新的时间戳越大
+    },
+    getTitleList: ()=> {
+        return ArticleModel.find({}, ["title","tag","updatedAt","views","_id"])
+    },
     getArticlesListSortByTime: (page, limit) => {
         return ArticleModel.find({}).
         sort({updatedAt: -1}).
@@ -20,12 +31,15 @@ const ArticleService = {
             abstract
         })
     },
-    updateArticle: (title, content, author, tag) => {
-        return ArticleModel.updateOne({_id: id}, {
+    updateArticle: (title, content, tag, img, abstract, articleId, view = 0) => {
+        console.log('update2', articleId)
+        return ArticleModel.updateOne({_id: articleId}, {
             title,
             content,
-            author,
             tag,
+            view,
+            img,
+            abstract
         })
     },
     delArticle: (id) => {

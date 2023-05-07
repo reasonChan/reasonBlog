@@ -1,4 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
+import {user, store} from "../store/index.js";
+const userStore = user(store)
+
 const routes = [
     {
         path: '/',
@@ -29,9 +32,16 @@ const routes = [
             },
             {
                 path: '/system/update',
-                name: '修改文章',
+                name: '修改文章列表',
                 icon: "Document",
-                component: () => import('../views/System/update.vue')
+                component: () => import('../views/System/update/index.vue'),
+                children: [
+                    {
+                        path: '/system/update/:articleId',
+                        name: '修改文章',
+                        component: () => import('../views/System/update/update.vue'),
+                    },
+                ]
             },
             {
                 path: '/system/analysis',
@@ -42,37 +52,27 @@ const routes = [
         ]
     },
     {
-        path: '/article',
-        name: '文章',
-        redirect: '/article/01',
+        path: '/article01',
+        name: userStore.articleTag.keys()[0],
+        component: () => import('../views/Article/article01/index.vue'),
+        redirect: '/article01/catalogue',
         children: [
             {
-                path: '/article/01',
-                name: 'js基础',
-                component: () => import('../views/Article/article01.vue')
+                path: '/article01/catalogue',
+                name: userStore.articleTag.keys()[0] + '目录',
+                component: () => import('../views/Article/article01/catalogue.vue'),
+                props: true,
+                meta: 'ca'
             },
             {
-                path: '/article/02',
-                name: '动画渲染',
-                component: () => import('../views/Article/article02.vue')
+                path: '/article01/:articleId',
+                name: userStore.articleTag.keys()[0] + 'js文章详情',
+                component: () => import('../views/Article/article01/detail.vue'),
+                props: true,
+                meta: 'con'
             },
-            {
-                path: '/article/03',
-                name: '性能优化',
-                component: () => import('../views/Article/article03.vue')
-            },
-            {
-                path: '/article/04',
-                name: '工程化和部署',
-                component: () => import('../views/Article/article04.vue')
-            }
         ]
     },
-    // {
-    //     path: '/animation',
-    //     name: 'Animation',
-    //     component: () => import('../views/animation.vue')
-    // },
 ]
 
 export default createRouter({

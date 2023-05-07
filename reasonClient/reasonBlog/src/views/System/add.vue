@@ -24,7 +24,7 @@
 import RichTextEditor from "../../components/RichTextEditor.vue";
 import {ref, reactive} from "vue";
 import {user} from "../../store/index.js";
-import {addtArticle} from "../../api/system.js";
+import {addArticle} from "../../api/system.js";
 import {useRouter} from "vue-router";
 
 const addArticleForm = reactive({
@@ -48,7 +48,7 @@ const upload = (formEle) => {
   formEle.validate(valid => {
     if (valid && addArticleForm.content.length > 0 && addArticleForm.abstract.length && typeof addArticleForm.tag === 'number') {
       loading.value = true;
-      addtArticle(addArticleForm.tag, addArticleForm.title, addArticleForm.content, addArticleForm.abstract.slice(0,30)).then(() => {
+      addArticle(addArticleForm.tag, addArticleForm.title, addArticleForm.content, addArticleForm.abstract.slice(0,100)).then(() => {
         ElMessageBox.confirm(
             '文章发布成功',
             '系统提示',

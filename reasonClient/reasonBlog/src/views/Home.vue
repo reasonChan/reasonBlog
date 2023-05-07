@@ -1,50 +1,52 @@
 <template>
   <div>
-    <Header></Header>
-    <div class="home-content">
-      <el-card class="home--card">
-        <template #header>
-          <div class="home-card-header">
-            <span :class="data.isActive ?'active':'deactive'" @click="getLatestArticles">最新</span>
-            <span :class="!data.isActive ?'active':'deactive'" @click="getHotArticles">最热</span>
-          </div>
-        </template>
-        <div class="">文章</div>
-        <div class="">文章</div>
-        <div class="">文章</div>
-      </el-card>
-    </div>
+    <el-container>
+      <el-header><Header></Header></el-header>
+      <el-main style="padding: 0 20px">
+        <div class="home-content">
+          <el-card class="home--card" shadow="never" body-style="padding: 0 20px 20px">
+            <template #header>
+              <div class="home-card-header">
+            <span
+                v-for="(item, index) in data"
+                :class="isActive == index ? 'active' : 'deactive'"
+                @click="toggle(item, index)"
+            >
+              {{item.name}}
+            </span>
+              </div>
+            </template>
+            <component :is="currentComponent"></component>
+          </el-card>
+        </div>
+      </el-main>
+    </el-container>
   </div>
 </template>
+
 
 <script setup>
 // import {ElButton} from 'element-plus'
 import Header from '../components/common/Header.vue'
-import {latestArticles} from '../api/home'
-import {ref, reactive} from "vue";
-let data = reactive({
-  isActive : true,
-  articleList: []
-})
-//获取最新文章
-let query = reactive({
-  latest: {
-    page: 1,
-    limit: 10
-  }
-})
-const getLatestArticles = () => {
-  data.isActive = !data.isActive
-  latestArticles(query.latest).then(res => {
-    data.articleList = res.data
-  })
-}
-getLatestArticles()
+import latestTab from '../components/homeTab/latestTab.vue'
+import hotTab from '../components/homeTab/hotTab.vue'
+import {ref, reactive, shallowRef, markRaw} from "vue";
 
-
-//获取最热文章
-const getHotArticles = () => {
-  data.isActive = !data.isActive
+let currentComponent = shallowRef(latestTab)
+const data = reactive([
+  {
+    name: '最新',
+    compo: markRaw(latestTab)
+  },
+  {
+    name: '最热',
+    compo: markRaw(hotTab)
+  },
+])
+let isActive = ref(0)
+const toggle = (item, index) => {
+  currentComponent.value = item.compo
+  isActive.value = index
 }
 </script>
 
